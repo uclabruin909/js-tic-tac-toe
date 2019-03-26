@@ -1,0 +1,36 @@
+* {
+	box-sizing: border-box;
+}
+
+.title {
+	text-align: center;
+}
+
+#wrapper {
+	text-align: center;
+}
+
+.board-table {
+	text-align: center;
+}
+
+.game-board {
+	width: 50%;
+	margin: 0 auto;
+	border-collapse: collapse;
+}
+
+.game-board td {
+  width: 33.333%;
+  border: 6px solid #222;
+}
+
+.game-board td::after {
+  content: "";
+  display: block;
+  margin-top: 100%;
+}
+
+.game-board td {
+  border: 6px solid #222;
+}
