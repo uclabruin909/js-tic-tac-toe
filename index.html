@@ -22,7 +22,7 @@
 				<span class="current-player"></span>
 			</p>			
 			<div class="control-buttons">
-				<button class="reset-btn">Reset game</button>
+				<button class="btn-blue reset-btn">Reset game</button>
 			</div> <!-- /.control-button -->
 		</div> <!-- /.board-controls -->
 
@@ -64,7 +64,11 @@
 			</table> <!-- /.game-board -->
 
 			<div class="board-modal">
-				<h1>GAME OVER</h1>
+				<div class="modal-body">
+					<h1>GAME OVER</h1>
+					<button class="btn-blue reset-btn">New Game?</button>
+				</div>
+				
 			</div> <!-- /.board-modal -->			
 		</div> <!-- /.board-table -->
 
@@ -107,9 +111,9 @@
 
 	const Game = (function() {
 		//cached box elements
-		let boxElements = document.querySelectorAll('.box');
-		let currentPlayerElement = document.querySelector('.current-player');
-		let resetBtnEl = document.querySelector('.reset-btn');
+		let boxEls = document.querySelectorAll('.box');
+		let resetBtnEls = document.querySelectorAll('.reset-btn');
+		let currentPlayerEl = document.querySelector('.current-player');
 		let boardModalEl = document.querySelector('.board-modal');
 
 
@@ -149,7 +153,7 @@
 			}
 
 			//update value of current player element value with new current player
-			currentPlayerElement.innerText = state.currentPlayer;
+			currentPlayerEl.innerText = state.currentPlayer;
 		}
 
 		function resetGameHandler(evt) {
@@ -158,16 +162,21 @@
 			state.boxes = Array(9).fill(null);
 			state.currentPlayer = 'X';
 			//update text for all box elements back to empty string
-			Utils.updateElementsTextValue(boxElements, '');
-			Utils.updateElementsTextValue([currentPlayerElement], state.currentPlayer);
+			Utils.updateElementsTextValue(boxEls, '');
+			Utils.updateElementsTextValue([currentPlayerEl], state.currentPlayer);
+
+			//if board-modal is active, remove 'active' class
+			if (boardModalEl.classList.contains('active')) {
+				boardModalEl.classList.remove('active')
+			}
 			console.log('Game has been reset!');
 
 		}
 
 		function init() {
-			currentPlayerElement.innerText = state.currentPlayer;
-			Utils.addClickHandlers(boxElements, handleBoxClick);
-			Utils.addClickHandlers([resetBtnEl], resetGameHandler);
+			currentPlayerEl.innerText = state.currentPlayer;
+			Utils.addClickHandlers(boxEls, handleBoxClick);
+			Utils.addClickHandlers(resetBtnEls, resetGameHandler);
 		}
 
 		return {
