@@ -75,6 +75,17 @@
 
 <script type="text/javascript">
 
+	const Consts = {
+		playerType: {
+			default: 'X',
+			secondary: 'O'
+		},
+		className: {
+			xValue: 'x-value',
+			oValue: 'o-value'
+		},
+	};
+
 	//Utils module with helper functions
 	const Utils = (function() {
 
@@ -96,10 +107,23 @@
 			}			
 		}
 
+		function getPlayerClassName(player) {
+			if (!player) return '';
+			switch (player.toUpperCase()) {
+				case 'X':
+					return Consts.className['xValue'];
+				case 'O':
+					return Consts.className['oValue'];
+				default:
+					return '';
+			}
+		}
+
 		return {
 			isGameCompleted: isGameCompleted,
 			addClickHandlers: addClickHandlers,
 			updateElementsTextValue: updateElementsTextValue,
+			getPlayerClassName: getPlayerClassName,
 		};
 
 	}());
@@ -142,10 +166,10 @@
 
 		function updateToNextPlayer() {
 			let currentPlayer = state.currentPlayer;
-			if (currentPlayer === 'X') {
-				state.currentPlayer = 'O';
+			if (currentPlayer === Consts.playerType.default) {
+				state.currentPlayer = Consts.playerType.secondary;
 			} else {
-				state.currentPlayer = 'X';
+				state.currentPlayer = Consts.playerType.default;
 			}
 
 			//update value of current player element value with new current player
@@ -156,7 +180,7 @@
 			evt.stopPropagation();
 			//update state.box values with null values and currentPlayer back to 'X'
 			state.boxes = Array(9).fill(null);
-			state.currentPlayer = 'X';
+			state.currentPlayer = Consts.playerType.default;
 			//update text for all box elements back to empty string
 			Utils.updateElementsTextValue(boxEls, '');
 			Utils.updateElementsTextValue([currentPlayerEl], state.currentPlayer);
