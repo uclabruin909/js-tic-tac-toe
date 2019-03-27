@@ -16,19 +16,19 @@
 		<div class="board-table">
 			<table class="game-board">
 				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
+					<td class="box" box-index="0"></td>
+					<td class="box" box-index="1"></td>
+					<td class="box" box-index="2"></td>
 				</tr>
 				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
+					<td class="box" box-index="3"></td>
+					<td class="box" box-index="4"></td>
+					<td class="box" box-index="5"></td>
 				</tr>
 				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
+					<td class="box" box-index="6"></td>
+					<td class="box" box-index="7"></td>
+					<td class="box" box-index="8"></td>
 				</tr>
 			</table>
 		</div> <!-- /.board-table -->
@@ -40,6 +40,51 @@
 
 <script type="text/javascript">
 	
+	//Utils module with helper functions
+	const Utils = (function() {
+
+		function addClickHandlers(elements, handler) {
+			for (let i=0; i<elements.length; i++) {
+				elements[i].addEventListener('click', handler);
+			}
+		}
+
+		return {
+			addClickHandlers: addClickHandlers
+		};
+
+	}());
+
+
+	const Game = (function() {
+		//cached box elements
+		let boxElements = document.querySelectorAll('.box');
+		
+		let state = {
+			boxes: [null, null, null, null, null, null, null, null, null],
+		};
+
+		
+
+		function handleBoxClick(evt) {
+			evt.preventDefault();
+			this.innerHTML = 'X';
+		}
+
+		function init() {
+			Utils.addClickHandlers(boxElements, handleBoxClick);
+		}
+
+		return {
+			init: init
+		};
+
+	}());
+
+
+	Game.init();
+
+
 </script>
 
 </html>
