@@ -110,6 +110,7 @@
 		let boxElements = document.querySelectorAll('.box');
 		let currentPlayerElement = document.querySelector('.current-player');
 		let resetBtnEl = document.querySelector('.reset-btn');
+		let boardModalEl = document.querySelector('.board-modal');
 
 
 		let state = {
@@ -131,8 +132,10 @@
 			}
 
 			//check to see if game is finished (no more empty boxes)
+			//if game is completed, add classname 'active' to boardModalEl
 			if (Utils.isGameCompleted(state.boxes)) {
 				alert('game is completed');
+				boardModalEl.classList.add('active');
 			}
 
 		}
