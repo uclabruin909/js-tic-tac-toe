@@ -98,13 +98,31 @@
 
 		let state = {
 			boxes: [null, null, null, null, null, null, null, null, null],
+			currentPlayer: 'X',
 		};
 
-		
-
 		function handleBoxClick(evt) {
-			evt.preventDefault();
-			this.innerHTML = 'X';
+			evt.stopPropagation();
+			let selBoxIndex = Number(evt.target.getAttribute('box-index'));
+			let currentPlayer = state.currentPlayer;
+
+			//only allow click updates if state of selected box is null (empty)
+			if (state.boxes[selBoxIndex] === null) {
+				state.boxes[selBoxIndex] = currentPlayer;
+				this.innerHTML = currentPlayer;
+				//toggle to next player after state is updated
+				updateToNextPlayer();
+			}
+
+		}
+
+		function updateToNextPlayer() {
+			let currentPlayer = state.currentPlayer;
+			if (currentPlayer === 'X') {
+				state.currentPlayer = 'O';
+			} else {
+				state.currentPlayer = 'X';
+			}
 		}
 
 		function init() {
