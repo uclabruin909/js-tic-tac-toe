@@ -80,8 +80,15 @@
 			}
 		}
 
+		function updateElementsTextValue(elements, textValue) {
+			for (let i=0; i<elements.length; i++) {
+				elements[i].innerText = textValue;
+			}			
+		}
+
 		return {
-			addClickHandlers: addClickHandlers
+			addClickHandlers: addClickHandlers,
+			updateElementsTextValue: updateElementsTextValue,
 		};
 
 	}());
@@ -90,9 +97,11 @@
 	const Game = (function() {
 		//cached box elements
 		let boxElements = document.querySelectorAll('.box');
+		let currentPlayerElement = document.querySelector('.current-player');
+
 
 		let state = {
-			boxes: [null, null, null, null, null, null, null, null, null],
+			boxes: Array(9).fill(null),
 			currentPlayer: 'X',
 		};
 
@@ -118,9 +127,21 @@
 			} else {
 				state.currentPlayer = 'X';
 			}
+
+			//update value of current player element value with new current player
+			currentPlayerElement.innerText = state.currentPlayer;
+		}
+
+		function resetGameHandler(evt) {
+			evt.stopPropagation();
+			//update state.box values with null values
+			state.boxes = Array(9).fill(null);
+			Utils.updateElementsTextValue(boxElements, null);
+
 		}
 
 		function init() {
+			currentPlayerElement.innerText = state.currentPlayer;
 			Utils.addClickHandlers(boxElements, handleBoxClick);
 		}
 
