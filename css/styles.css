@@ -2,6 +2,14 @@
 	box-sizing: border-box;
 }
 
+html, body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	width: 100%;
+	font-family: Arial;
+}
+
 .title {
 	text-align: center;
 }
@@ -16,7 +24,7 @@
 
 /*BOARD STYLES:*/
 .game-board {
-	width: 50%;
+	width: 40%;
 	margin: 0 auto;
 	border-collapse: collapse;
 }
@@ -30,6 +38,7 @@
   content: "";
   display: block;
   margin-top: 100%;
+  width: 100%;
 }
 
 .game-board td {
@@ -50,4 +59,30 @@
 	justify-content: center;
 	font-size: 35px;
 	font-weight: bold;		
+}
+
+.box:hover {
+	cursor: pointer;
+	background: gray;
+}
+
+
+/*BOARD CONTROL STYLES*/
+.board-controls {
+	margin-bottom: 25px;
+}
+
+.board-controls button {
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;	
+  border: 1px solid transparent;
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: .25rem;  
+}
+
+.board-controls button:hover {
+	cursor: pointer;
 }
