@@ -98,6 +98,7 @@
 		//cached box elements
 		let boxElements = document.querySelectorAll('.box');
 		let currentPlayerElement = document.querySelector('.current-player');
+		let resetBtnEl = document.querySelector('.reset-btn');
 
 
 		let state = {
@@ -134,15 +135,20 @@
 
 		function resetGameHandler(evt) {
 			evt.stopPropagation();
-			//update state.box values with null values
+			//update state.box values with null values and currentPlayer back to 'X'
 			state.boxes = Array(9).fill(null);
-			Utils.updateElementsTextValue(boxElements, null);
+			state.currentPlayer = 'X';
+			//update text for all box elements back to empty string
+			Utils.updateElementsTextValue(boxElements, '');
+			Utils.updateElementsTextValue([currentPlayerElement], state.currentPlayer);
+			console.log('Game has been reset!');
 
 		}
 
 		function init() {
 			currentPlayerElement.innerText = state.currentPlayer;
 			Utils.addClickHandlers(boxElements, handleBoxClick);
+			Utils.addClickHandlers([resetBtnEl], resetGameHandler);
 		}
 
 		return {
