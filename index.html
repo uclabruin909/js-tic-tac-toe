@@ -107,6 +107,12 @@
 			}			
 		}
 
+		function removeClassNames(elements, classNames) {
+			for (let i=0; i<elements.length; i++) {
+				elements[i].classList.remove(...classNames);
+			}			
+		}		
+
 		function getPlayerClassName(player) {
 			if (!player) return '';
 			switch (player.toUpperCase()) {
@@ -124,6 +130,7 @@
 			addClickHandlers: addClickHandlers,
 			updateElementsTextValue: updateElementsTextValue,
 			getPlayerClassName: getPlayerClassName,
+			removeClassNames: removeClassNames,
 		};
 
 	}());
@@ -150,6 +157,7 @@
 			//only allow click updates if state of selected box is null (empty)
 			if (state.boxes[selBoxIndex] === null) {
 				state.boxes[selBoxIndex] = currentPlayer;
+				this.classList.add(Utils.getPlayerClassName(currentPlayer));
 				this.innerText = currentPlayer;
 				//toggle to next player after state is updated
 				updateToNextPlayer();
@@ -158,7 +166,6 @@
 			//check to see if game is finished (no more empty boxes)
 			//if game is completed, add classname 'active' to boardModalEl
 			if (Utils.isGameCompleted(state.boxes)) {
-				alert('game is completed');
 				boardModalEl.classList.add('active');
 			}
 
@@ -184,6 +191,8 @@
 			//update text for all box elements back to empty string
 			Utils.updateElementsTextValue(boxEls, '');
 			Utils.updateElementsTextValue([currentPlayerEl], state.currentPlayer);
+
+			//
 
 			//if board-modal is active, remove 'active' class
 			if (boardModalEl.classList.contains('active')) {

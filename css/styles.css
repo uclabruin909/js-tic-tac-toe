@@ -51,10 +51,14 @@ html, body {
 	left: 30%;
 	width: 40%;
 	height: 100%;
-	background: rgba(255,0,0, 0.5);
+	background: rgba(0,0,0, 0.5);
 	display: flex;
 	justify-content: center;
 	align-items: center;	
+}
+
+.board-modal h1 {
+	color: white;
 }
 
 /*BOARD STYLES:*/
@@ -99,6 +103,14 @@ html, body {
 .box:hover {
 	cursor: pointer;
 	background: gray;
+}
+
+.box.x-value {
+	color: blue;
+}
+
+.box.o-value {
+	color: red;
 }
 
 
