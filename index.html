@@ -16,19 +16,55 @@
 		<div class="board-table">
 			<table class="game-board">
 				<tr>
-					<td class="box" box-index="0"></td>
-					<td class="box" box-index="1"></td>
-					<td class="box" box-index="2"></td>
+					<td class="cell">
+						<div class="box" box-index="0">
+							
+						</div>
+					</td>
+					<td class="cell">
+						<div class="box" box-index="1">
+							
+						</div>
+					</td>
+					<td class="cell">
+						<div class="box" box-index="2">
+							
+						</div>
+					</td>
 				</tr>
 				<tr>
-					<td class="box" box-index="3"></td>
-					<td class="box" box-index="4"></td>
-					<td class="box" box-index="5"></td>
+					<td class="cell">
+						<div class="box" box-index="3">
+							
+						</div>
+					</td>
+					<td class="cell">
+						<div class="box" box-index="4">
+							
+						</div>
+					</td>
+					<td class="cell">
+						<div class="box" box-index="5">
+							
+						</div>
+					</td>
 				</tr>
 				<tr>
-					<td class="box" box-index="6"></td>
-					<td class="box" box-index="7"></td>
-					<td class="box" box-index="8"></td>
+					<td class="cell">
+						<div class="box" box-index="6">
+							
+						</div>
+					</td>
+					<td class="cell">
+						<div class="box" box-index="7">
+							
+						</div>
+					</td>
+					<td class="cell">
+						<div class="box" box-index="8">
+							
+						</div>
+					</td>
 				</tr>
 			</table>
 		</div> <!-- /.board-table -->
@@ -59,7 +95,7 @@
 	const Game = (function() {
 		//cached box elements
 		let boxElements = document.querySelectorAll('.box');
-		
+
 		let state = {
 			boxes: [null, null, null, null, null, null, null, null, null],
 		};
