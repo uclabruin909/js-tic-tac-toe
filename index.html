@@ -70,155 +70,19 @@
 
 	</div><!--  ./#wrapper -->
 	
-	
 </body>
 
+<script type="text/javascript" src="./js/consts.js"></script>
+<script type="text/javascript" src="./js/utils.js"></script>
+<script type="text/javascript" src="./js/game.js"></script>
 <script type="text/javascript">
-
-	const Consts = {
-		playerType: {
-			default: 'X',
-			secondary: 'O'
-		},
-		className: {
-			xValue: 'x-value',
-			oValue: 'o-value'
-		},
-	};
-
-	//Utils module with helper functions
-	const Utils = (function() {
-
-		function isGameCompleted(boxes) {
-		  return boxes.every((box) => {
-		  	return box !== null;
-		  });			
-		}
-
-		function addClickHandlers(elements, handler) {
-			for (let i=0; i<elements.length; i++) {
-				elements[i].addEventListener('click', handler);
-			}
-		}
-
-		function updateElementsTextValue(elements, textValue) {
-			for (let i=0; i<elements.length; i++) {
-				elements[i].innerText = textValue;
-			}			
-		}
-
-		function removeClassNames(elements, classNames) {
-			for (let i=0; i<elements.length; i++) {
-				elements[i].classList.remove(...classNames);
-			}			
-		}		
-
-		function getPlayerClassName(player) {
-			if (!player) return '';
-			switch (player.toUpperCase()) {
-				case 'X':
-					return Consts.className['xValue'];
-				case 'O':
-					return Consts.className['oValue'];
-				default:
-					return '';
-			}
-		}
-
-		return {
-			isGameCompleted: isGameCompleted,
-			addClickHandlers: addClickHandlers,
-			updateElementsTextValue: updateElementsTextValue,
-			getPlayerClassName: getPlayerClassName,
-			removeClassNames: removeClassNames,
-		};
-
-	}());
-
-
-	const Game = (function() {
-		//cached box elements
-		let boxEls = document.querySelectorAll('.box');
-		let resetBtnEls = document.querySelectorAll('.reset-btn');
-		let currentPlayerEl = document.querySelector('.current-player');
-		let boardModalEl = document.querySelector('.board-modal');
-
-
-		let state = {
-			boxes: Array(9).fill(null),
-			currentPlayer: 'X',
-		};
-
-		function handleBoxClick(evt) {
-			evt.stopPropagation();
-			let selBoxIndex = Number(evt.target.getAttribute('box-index'));
-			let currentPlayer = state.currentPlayer;
-
-			//only allow click updates if state of selected box is null (empty)
-			if (state.boxes[selBoxIndex] === null) {
-				state.boxes[selBoxIndex] = currentPlayer;
-				this.classList.add(Utils.getPlayerClassName(currentPlayer));
-				this.innerText = currentPlayer;
-				//toggle to next player after state is updated
-				updateToNextPlayer();
-			}
-
-			//check to see if game is finished (no more empty boxes)
-			//if game is completed, add classname 'active' to boardModalEl
-			if (Utils.isGameCompleted(state.boxes)) {
-				boardModalEl.classList.add('active');
-			}
-
-		}
-
-		function updateToNextPlayer() {
-			let currentPlayer = state.currentPlayer;
-			if (currentPlayer === Consts.playerType.default) {
-				state.currentPlayer = Consts.playerType.secondary;
-			} else {
-				state.currentPlayer = Consts.playerType.default;
-			}
-
-			//update value of current player element value with new current player
-			currentPlayerEl.innerText = state.currentPlayer;
-		}
-
-		function resetGameHandler(evt) {
-			evt.stopPropagation();
-			//update state.box values with null values and currentPlayer back to 'X'
-			state.boxes = Array(9).fill(null);
-			state.currentPlayer = Consts.playerType.default;
-			//update text for all box elements back to empty string
-			Utils.updateElementsTextValue(boxEls, '');
-			Utils.updateElementsTextValue([currentPlayerEl], state.currentPlayer);
-
-			//remove old value classes from box elements
-			Utils.removeClassNames(boxEls, [Consts.className.xValue, Consts.className.oValue])
-
-			//if board-modal is active, remove 'active' class
-			if (boardModalEl.classList.contains('active')) {
-				boardModalEl.classList.remove('active')
-			}
-			console.log('Game has been reset!');
-
-		}
-
-		function init() {
-			currentPlayerEl.innerText = state.currentPlayer;
-			Utils.addClickHandlers(boxEls, handleBoxClick);
-			Utils.addClickHandlers(resetBtnEls, resetGameHandler);
-		}
-
-		return {
-			init: init
-		};
-
-	}());
-
-
 	Game.init();
 
-
+	//console.log state of game everytime board-table is clicked
+	document.querySelector('.board-table').addEventListener('click', function() {
+		const curGameState = Game.getState();
+		console.log('Current Game state:', curGameState);
+	});
 </script>
 
 </html>
