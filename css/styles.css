@@ -20,6 +20,25 @@ html, body {
 
 .board-table {
 	text-align: center;
+	position: relative;
+	width: 100%;
+}
+
+/*display none by default*/
+.board-modal {
+	display: none;
+}
+
+.board-modal.active {
+	position: absolute;
+	top: 0;
+	left: 30%;
+	width: 40%;
+	height: 100%;
+	background: rgba(255,0,0, 0.5);
+	display: flex;
+	justify-content: center;
+	align-items: center;	
 }
 
 /*BOARD STYLES:*/
