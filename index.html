@@ -192,7 +192,8 @@
 			Utils.updateElementsTextValue(boxEls, '');
 			Utils.updateElementsTextValue([currentPlayerEl], state.currentPlayer);
 
-			//
+			//remove old value classes from box elements
+			Utils.removeClassNames(boxEls, [Consts.className.xValue, Consts.className.yValue])
 
 			//if board-modal is active, remove 'active' class
 			if (boardModalEl.classList.contains('active')) {
